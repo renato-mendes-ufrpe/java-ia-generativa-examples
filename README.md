@@ -27,16 +27,16 @@ Este projeto contém **exemplos funcionais** que demonstram:
    
    **Opção A - Clone do repositório:**
    ```bash
-   git clone <url-do-repositorio>
-   cd ia-gen-examples
+   git clone https://github.com/renato-mendes-ufrpe/java-ia-generativa-examples.git
+   cd java-ia-generativa-examples
    ```
    
    **Opção B - Download do arquivo ZIP:**
    ```bash
-   # Baixe o ZIP do GitHub/repositório
+   # Baixe o ZIP do GitHub em: https://github.com/renato-mendes-ufrpe/java-ia-generativa-examples
    # Extraia o arquivo
-   unzip ia-gen-examples-main.zip
-   cd ia-gen-examples-main
+   unzip java-ia-generativa-examples-main.zip
+   cd java-ia-generativa-examples-main
    ```
 
 2. **Configure as API keys** (veja seção de configuração abaixo)
@@ -296,6 +296,7 @@ example.generateWithDetails("ArrayList vs LinkedList");
 
 ## 🔗 Links
 
+- 🏠 [Repositório GitHub](https://github.com/renato-mendes-ufrpe/java-ia-generativa-examples)
 - 📖 [Documentação Gemini API](https://ai.google.dev/gemini-api/docs)
 - � [Documentação OpenAI API](https://platform.openai.com/docs/api-reference)
 - 🔑 [Gemini API Keys](https://aistudio.google.com/apikey)
