@@ -139,31 +139,156 @@ Teste se está funcionando:
 
 Se aparecer "Demonstração concluída" sem erros, está configurado! ✅
 
-## 🚀 Exemplos Disponíveis
+## 🚀 Programas Disponíveis
 
 ### **1. Chamadas Básicas (Gemini)**
 ```bash
 ./gradlew run
 ```
-**O que faz:** Demonstra geração de texto, conversas e metadata detalhado.
+**📋 O que faz:**
+- Demonstra 3 tipos de interação com Gemini API
+- Geração de texto simples com perguntas diretas
+- Conversas contextuais combinando múltiplas mensagens
+- Análise detalhada com múltiplos candidates e metadados
+
+**🔧 Como usa a API:**
+- **SDK**: `com.google.genai:google-genai:1.0.0`
+- **Cliente**: `Client.builder().apiKey(apiKey).build()`
+- **Método**: `client.models.generateContent(modelName, prompt, config)`
+- **Configurações**: `GenerateContentConfig` para temperatura e candidates
+
+```java
+// Exemplo de código usado no programa
+Client client = Client.builder()
+    .apiKey(config.getGoogleApiKey())
+    .build();
+
+GenerateContentResponse response = client.models.generateContent(
+    modelName, 
+    prompt,
+    null
+);
+
+String result = response.text();
+```
+
+---
 
 ### **2. Integração com Arquivos (Gemini)**  
 ```bash
 ./gradlew runFileIntegration
 ```
-**O que faz:** Analisa PDF do projeto + logs da aplicação com upload real.
+**📋 O que faz:**
+- Upload real de PDF para análise via Gemini Files API
+- Processa logs da aplicação automaticamente
+- Gera relatórios estruturados baseados nos arquivos enviados
+- Demonstra capacidade multimodal (texto + documentos)
+
+**🔧 Como usa a API:**
+- **Upload**: `UploadFileConfig` para enviar arquivos
+- **Files API**: `client.files.upload()` com MIME type apropriado
+- **Análise**: Combina arquivo enviado + prompt especializado
+- **Processamento**: IA analisa conteúdo e retorna insights estruturados
+
+```java
+// Exemplo de código usado no programa
+UploadFileConfig uploadConfig = UploadFileConfig.builder()
+    .mimeType("application/pdf")
+    .displayName("Resumo Estruturado do Projeto de Mestrado")
+    .build();
+
+File uploadedFile = client.files.upload(pdfPath, uploadConfig);
+
+Content content = Content.builder()
+    .parts(Arrays.asList(
+        Part.fromText(prompt),
+        Part.fromUri(uploadedFile.uri().orElse(""), uploadedFile.mimeType().orElse("application/pdf"))
+    ))
+    .build();
+
+GenerateContentResponse response = client.models.generateContent(
+    modelName,
+    Arrays.asList(content),
+    null
+);
+```
+
+---
 
 ### **3. Monitoramento Aquicultura (Gemini)**
 ```bash
 ./gradlew runAquaculture
 ```
-**O que faz:** Simula sensores IoT e gera análises para tomada de decisão.
+**📋 O que faz:**
+- Simula sensores IoT realísticos (oxigênio, temperatura, pH, amônia)
+- Gera 3 cenários: Normal, Alerta e Crítico
+- Produz análises especializadas para tomada de decisão
+- Fornece recomendações práticas de manejo aquícola
+
+**🔧 Como usa a API:**
+- **Dados estruturados**: Classe `SensorData` com parâmetros realísticos
+- **Prompt especializado**: Template com conhecimento em aquicultura
+- **Análise contextual**: IA recebe dados + parâmetros ideais para tilápia
+- **Resposta estruturada**: Nível de risco + ações críticas + preventivas
+
+```java
+// Exemplo de código usado no programa
+String prompt = buildAnalysisPrompt(sensorData);
+
+// Cria o conteúdo da consulta
+Content content = Content.builder()
+        .parts(Arrays.asList(Part.fromText(prompt)))
+        .build();
+
+// Faz a chamada para o Gemini
+GenerateContentResponse response = client.models.generateContent(
+    modelName,
+    Arrays.asList(content),
+    null
+);
+
+return response.text();
+```
+
+---
 
 ### **4. Monitoramento Aquicultura (OpenAI)**
 ```bash
 ./gradlew runAquacultureOpenAI
 ```
-**O que faz:** Mesmo sistema, mas usando OpenAI para comparação.
+**📋 O que faz:**
+- Sistema idêntico ao anterior, usando OpenAI ChatCompletion
+- Permite comparação direta entre provedores de IA
+- Mesmo prompt e dados para análise comparativa justa
+- Demonstra diferenças de resposta e estilo entre Gemini e OpenAI
+
+**🔧 Como usa a API:**
+- **SDK**: `com.openai:openai-java:4.2.0` (biblioteca oficial)
+- **Cliente**: `OpenAIOkHttpClient.builder().apiKey()`
+- **Chat Completion**: `ChatCompletionCreateParams` com mensagens
+- **Modelo**: `gpt-4o-mini` com configurações de temperatura
+
+```java
+// Exemplo de código usado no programa
+OpenAIClient client = OpenAIOkHttpClient.builder()
+    .apiKey(config.getOpenaiApiKey())
+    .build();
+
+ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+    .addSystemMessage("Você é um especialista em aquicultura com vasta experiência em monitoramento de viveiros de tilápia.")
+    .addUserMessage(prompt)
+    .model(ChatModel.of(config.getOpenaiModel()))
+    .maxCompletionTokens(config.getOpenaiMaxTokens())
+    .temperature(config.getOpenaiTemperature())
+    .build();
+
+ChatCompletion completion = client.chat().completions().create(params);
+String response = completion.choices()
+    .get(0)
+    .message()
+    .content()
+    .orElse("Resposta vazia do OpenAI");
+```
 
 ## 📊 Exemplo de Saída
 ```
