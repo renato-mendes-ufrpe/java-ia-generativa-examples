@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // === AI PROVIDERS ===
+    
+    // Google Gemini AI dependency
+    implementation 'com.google.genai:google-genai:1.0.0'
+    
+    // OpenAI Java SDK Official
+    implementation 'com.openai:openai-java:4.2.0'
+    
+    // === HTTP & JSON ===
+    
+    // Google HTTP Client for making HTTP requests
+    implementation 'com.google.http-client:google-http-client:1.44.1'
+    implementation 'com.google.http-client:google-http-client-gson:1.44.1'
+    
+    // JSON processing
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // === UTILITIES ===
+    
+    // Environment variables (.env support)
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    
+    // Logging
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+    
+    // === TESTING ===
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+application {
+    mainClass = 'com.example.gemini.Main'
+}
+
+// Task adicional para executar a demonstração de integração com arquivos
+tasks.register('runFileIntegration', JavaExec) {
+    group = 'application'
+    description = 'Executa demonstração de integração com arquivos'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.gemini.MainFileIntegration'
+}
+
+// Task para executar o sistema de monitoramento de aquicultura (Gemini)
+tasks.register('runAquaculture', JavaExec) {
+    group = 'application'
+    description = 'Executa sistema de monitoramento de aquicultura com análise real do Gemini'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.gemini.MainAquaculture'
+}
+
+// Task para executar o sistema de monitoramento de aquicultura (OpenAI)
+tasks.register('runAquacultureOpenAI', JavaExec) {
+    group = 'application'
+    description = 'Executa sistema de monitoramento de aquicultura com análise real do OpenAI'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.openai.MainAquacultureOpenAI'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

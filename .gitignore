@@ -1,0 +1,115 @@
+# ===== ARQUIVOS DE CONFIGURAÇÃO SENSÍVEIS =====
+.env
+.env.local
+.env.*.local
+
+# ===== JAVA & GRADLE =====
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# ===== IDEs =====
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# ===== LOGS =====
+logs/
+*.log
+*.log.*
+
+# ===== ARQUIVOS TEMPORÁRIOS =====
+*.tmp
+*.temp
+*~
+
+# ===== SISTEMA OPERACIONAL =====
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Icon?
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+
+# ===== OUTROS =====
+# Backup files
+*.bak
+*.backup
+*.swp
+*.swo
+
+# Package Files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+
+# ===== ARQUIVOS ESPECÍFICOS DO PROJETO =====
+# Cache de uploads de arquivos (se houver)
+uploads/
+cache/
+
+# Arquivos de teste gerados
+test-output/
